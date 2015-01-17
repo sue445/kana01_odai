@@ -60,4 +60,8 @@ describe Kana01Odai do
       it_is_asserted_by { Kana01Odai.evalex(formula) == expected }
     end
   end
+
+  describe "#parse" do
+    it_is_asserted_by{ Kana01Odai.parse("4*5+6&7|8") == [4, "*", 5, "+", 6, "&", 7, "|", 8] }
+  end
 end
