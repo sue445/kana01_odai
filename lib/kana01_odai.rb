@@ -1,11 +1,11 @@
 require "kana01_odai/version"
 
 module Kana01Odai
-  OPERATOR_PRIPRITIES = {
+  OPERATOR_PRIORITIES = {
     "|" => 4,
     "&" => 3,
     "+" => 2,
-    "-" => 1,
+    "*" => 1,
   }
 
   def self.evalex(formula)
@@ -32,9 +32,21 @@ module Kana01Odai
       if element.is_a? Numeric
         response << element
       else
-        operator_stack.unshift(element)
+        if operator_stack.empty? || OPERATOR_PRIORITIES[element] > OPERATOR_PRIORITIES[operator_stack.first]
+          # スタックの先頭より優先度が高い時はそのまま積む
+          operator_stack.unshift(element)
+        else
+          # スタックの先頭より優先度が低くなるまで取り出してから積む
+          until OPERATOR_PRIORITIES[element] > OPERATOR_PRIORITIES[operator_stack.first]
+            response << operator_stack.shift
+          end
+          operator_stack.unshift(element)
+        end
       end
     end
+
+    # 残りを全部取り出す
+    response << operator_stack.shift until operator_stack.empty?
 
     response
   end
