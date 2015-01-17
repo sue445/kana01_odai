@@ -9,9 +9,7 @@ module Kana01Odai
   }
 
   def self.evalex(formula)
-    array = parse(formula)
-    p formula.split(/[|&+*]/)
-    0
+    calc_rpn(convert_rpn(formula))
   end
 
   def self.parse(formula)
@@ -37,8 +35,15 @@ module Kana01Odai
           operator_stack.unshift(element)
         else
           # スタックの先頭より優先度が低くなるまで取り出してから積む
-          until OPERATOR_PRIORITIES[element] > OPERATOR_PRIORITIES[operator_stack.first]
-            response << operator_stack.shift
+          loop do
+            first_operator = operator_stack.first
+            break unless first_operator
+
+            if OPERATOR_PRIORITIES[element] > OPERATOR_PRIORITIES[first_operator]
+              break
+            else
+              response << operator_stack.shift
+            end
           end
           operator_stack.unshift(element)
         end
@@ -49,5 +54,34 @@ module Kana01Odai
     response << operator_stack.shift until operator_stack.empty?
 
     response
+  end
+
+  def self.calc_rpn(rpn_array)
+    result = 0
+    stack = []
+
+    rpn_array.each do |element|
+      if element.is_a? Numeric
+        stack.unshift(element)
+      else
+        # 演算子の時
+        first  = stack.shift
+        second = stack.shift
+        result =
+          case element
+          when "|"
+            first | second
+          when "&"
+            first & second
+          when "+"
+            first + second
+          when "*"
+            first * second
+          end
+        stack.unshift(result)
+      end
+    end
+
+    result
   end
 end
