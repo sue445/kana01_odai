@@ -64,4 +64,8 @@ describe Kana01Odai do
   describe "#parse" do
     it_is_asserted_by{ Kana01Odai.parse("4*5+6&7|8") == [4, "*", 5, "+", 6, "&", 7, "|", 8] }
   end
+
+  describe "#convert_rpn" do
+    it_is_asserted_by{ Kana01Odai.convert_rpn("4*5+6&7|8") == [4,    "*", 5, "+", 6, "&", 7, "|", 8] }
+  end
 end
