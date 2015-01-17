@@ -36,14 +36,10 @@ module Kana01Odai
         else
           # スタックの先頭より優先度が低くなるまで取り出してから積む
           loop do
-            first_operator = operator_stack.first
-            break unless first_operator
+            break unless operator_stack.first
+            break if OPERATOR_PRIORITIES[element] > OPERATOR_PRIORITIES[operator_stack.first]
 
-            if OPERATOR_PRIORITIES[element] > OPERATOR_PRIORITIES[first_operator]
-              break
-            else
-              response << operator_stack.shift
-            end
+            response << operator_stack.shift
           end
           operator_stack.unshift(element)
         end
