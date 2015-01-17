@@ -1,31 +1,3 @@
-# Kana01Odai
+[神奈川Ruby会議01](http://regional.rubykaigi.org/kana01/) の [お題](http://nabetani.sakura.ne.jp/kanagawa.rb/evalex/) を逆ポーランド記法で実装
 
-TODO: Write a gem description
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'kana01_odai'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install kana01_odai
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/kana01_odai/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+参考サイト: http://7ujm.net/etc/calcstart.html
